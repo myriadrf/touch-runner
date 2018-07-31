@@ -8,7 +8,7 @@ class ButtonList
 {
 public:
     ButtonList();
-    QList<Button> buttonList() const;
+    QList<Button> *buttonList();
 
     void add(Button &button);
     void read(const QJsonObject &json);

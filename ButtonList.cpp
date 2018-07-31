@@ -9,9 +9,9 @@ ButtonList::ButtonList()
 
 }
 
-QList<Button> ButtonList::buttonList() const
+QList<Button> *ButtonList::buttonList()
 {
-    return mButtonList;
+    return &mButtonList;
 }
 
 void ButtonList::add(Button &button)

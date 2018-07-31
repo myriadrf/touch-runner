@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //ui->console_widget->devicePixelRatio()
     QFont font = QApplication::font();
     font.setFamily("Monospace");
-    font.setPointSize(6);
+    //font.setPointSize(6);
     ui->console_widget->setTerminalFont(font);
     ui->console_widget->setColorScheme("Solarized");
 
@@ -43,29 +43,21 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //set layout according to amount of buttons
     if(len <= 2)
-        ui->gridLayout_2->setColumnMinimumWidth(1,10);
+        ui->gridLayout_2->setColumnMinimumWidth(1,0);
     else if(len > 2 && len <= 6)
-        ui->gridLayout_2->setColumnMinimumWidth(2,10);
+        ui->gridLayout_2->setColumnMinimumWidth(2,0);
     else
-        ui->gridLayout_2->setColumnMinimumWidth(3,10);
-
-    //create buttons
-    //QPushButton *newButton[10];
-    QList<QPushButton*> newButton;
-    int i = 0;
+        ui->gridLayout_2->setColumnMinimumWidth(3,0);
 
 
-
-    foreach(Button button, buttons.buttonList()){
+    for(int i = 0; i < len; i++){
         //qDebug() << button.name();
         newButton.append(new QPushButton(this));
-        newButton[i]->setText(button.name());
+        buttonsActive.append(new bool);
+        buttonsActive[i] = false;
+        newButton[i]->setText(QString("Start\n" + buttons.buttonList()->at(i).name()));
         ui->gridLayout_2->addWidget(newButton[i]);
-
-        //connect(action, &QAction::triggered, engine, [=]() { engine->processAction(action->text()); });
-        //connect(button, &QPushButton::clicked, [this, button](){    ui->label->setText(button->text());        });
-        connect(newButton[i], &QPushButton::clicked, [this,i](){on_click_button(buttons,i);});
-        i++;
+        connect(newButton[i], &QPushButton::clicked, [this,i](){on_click_button(i);});
     }
     QObject::connect(ui->console_widget, SIGNAL(finished()), this, SLOT(close()));
 }
@@ -82,10 +74,46 @@ void MainWindow::on_actionABOUT_triggered()
     about.exec();
 }
 
-void MainWindow::on_click_button(ButtonList &buttons, int index)
+void MainWindow::on_click_button(int index)
 {
-    qDebug() << index << buttons.buttonList()[index].name();
-    QMessageBox::warning(this,"ayy", QString("button clicked:" + buttons.buttonList()[index].name()));
+    //Button button = buttons.buttonList()[index];
+    //qDebug() << index << button.name();
+    //QMessageBox::warning(this,"ayy", QString("button clicked:" + buttons.buttonList()[index].name()));
+
+    qDebug () << buttonsActive[index];
+    if(buttonsActive[index]){
+        //stop tasks
+        qDebug() << "stopping";
+        ui->console_widget->sendText(QString(buttons.buttonList()->at(index).stopCommand() + "\r"));
+        newButton[index]->setText(QString("Start\n" + buttons.buttonList()->at(index).name()));
+        buttonsActive[index] = false;
+        buttonActivate();
+
+    } else{
+        //start tasks
+        qDebug() << "starting";
+        newButton[index]->setText(QString("Stop\n" + buttons.buttonList()->at(index).name()));
+        ui->console_widget->sendText(QString(buttons.buttonList()->at(index).startCommand() + "\r"));
+        buttonsActive[index] = true;
+        buttonDeactivate(index);
+    }
+}
+
+void MainWindow::buttonActivate()
+{
+    int len = buttons.len();
+    for(int i = 0; i < len; i++)
+        newButton[i]->setEnabled(true);
+}
+
+void MainWindow::buttonDeactivate(int index)
+{
+    int len = buttons.len();
+    for(int i = 0; i < len; i++){
+        if(i != index)
+        newButton[i]->setEnabled(false);
+
+    }
 }
 
 

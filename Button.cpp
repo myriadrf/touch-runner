@@ -3,17 +3,30 @@
 Button::Button(QString defaultName)
 {
     mName = defaultName;
+    mActive = false;
 }
 
 Button::Button()
 {
-
+    mActive = false;
 }
 
 QString Button::name() const
 {
     return mName;
 }
+
+QString Button::startCommand() const
+{
+    return mStartCommand;
+}
+
+QString Button::stopCommand() const
+{
+    return mStopCommand;
+
+}
+
 
 void Button::read(const QJsonObject &json)
 {

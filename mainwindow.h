@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPushButton>
 #include "qtermwidget5/qtermwidget.h"
 
 #include "ButtonList.h"
@@ -23,12 +24,16 @@ private slots:
 
     void on_actionABOUT_triggered();
 
-    void on_click_button(ButtonList &buttons, int index);
+    void on_click_button(int index);
 
 private:
     Ui::MainWindow *ui;
     bool osmo_running = false;
-    ButtonList buttons;
+    ButtonList buttons; //button information
+    QList<QPushButton*> newButton; //gui button list
+    QList<bool> buttonsActive;
+    void buttonActivate();
+    void buttonDeactivate(int index);
 };
 
 #endif // MAINWINDOW_H
