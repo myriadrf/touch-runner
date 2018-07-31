@@ -24,15 +24,28 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        about_dialog.cpp \
+    ButtonList.cpp \
+    Button.cpp
 
 HEADERS += \
-        mainwindow.h
+    about_dialog.h \
+    mainwindow.h \
+    ButtonList.h \
+    Button.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+        about_dialog.ui
 
+LIBS += -lqtermwidget5 -L/usr/lib64/
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES +=
+
+RESOURCES += \
+    icons.qrc
