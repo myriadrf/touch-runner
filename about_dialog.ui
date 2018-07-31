@@ -53,13 +53,6 @@
       </property>
      </widget>
     </item>
-    <item>
-     <widget class="QLabel" name="label_3">
-      <property name="text">
-       <string>Author: Norbertas Kremeris</string>
-      </property>
-     </widget>
-    </item>
    </layout>
   </widget>
   <widget class="QLabel" name="label_4">
@@ -75,13 +68,11 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="icons.qrc">:/icons/lime.png</pixmap>
+    <pixmap>:/icons/lime.png</pixmap>
    </property>
   </widget>
  </widget>
- <resources>
-  <include location="icons.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>buttonBox</sender>

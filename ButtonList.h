@@ -1,3 +1,6 @@
+//Copyright (C) 2018 Norbertas Kremeris, LIME MICROSYSTEMS
+
+
 #ifndef BUTTON_LIST_H
 #define BUTTON_LIST_H
 

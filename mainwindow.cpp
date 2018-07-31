@@ -1,3 +1,5 @@
+//Copyright (C) 2018 Norbertas Kremeris, LIME MICROSYSTEMS
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 

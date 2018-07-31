@@ -1,5 +1,10 @@
+//Copyright (C) 2018 Norbertas Kremeris, LIME MICROSYSTEMS
+
+
 #ifndef BUTTON_INFO_H
 #define BUTTON_INFO_H
+
+
 
 #include <QJsonObject>
 #include <QString>

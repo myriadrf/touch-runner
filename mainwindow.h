@@ -1,3 +1,5 @@
+//Copyright (C) 2018 Norbertas Kremeris, LIME MICROSYSTEMS
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 

@@ -1,3 +1,6 @@
+//Copyright (C) 2018 Norbertas Kremeris, LIME MICROSYSTEMS
+
+
 #ifndef ABOUT_DIALOG_H
 #define ABOUT_DIALOG_H
 

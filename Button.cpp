@@ -1,3 +1,6 @@
+//Copyright (C) 2018 Norbertas Kremeris, LIME MICROSYSTEMS
+
+
 #include "Button.h"
 
 Button::Button(QString defaultName)

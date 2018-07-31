@@ -1,3 +1,6 @@
+//Copyright (C) 2018 Norbertas Kremeris, LIME MICROSYSTEMS
+
+
 #include "ButtonList.h"
 
 #include <QJsonArray>
