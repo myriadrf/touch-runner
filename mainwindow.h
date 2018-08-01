@@ -6,7 +6,7 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include "qtermwidget5/qtermwidget.h"
-
+#include <QTextEdit>
 #include "ButtonList.h"
 
 namespace Ui {
@@ -26,6 +26,8 @@ private slots:
     void onGuiButtonClick(int index);
     void on_actionABOUT_triggered();
 
+    void sendCtrlC();
+
 private:
     Ui::MainWindow *ui;
     bool osmo_running = false;
@@ -39,6 +41,11 @@ private:
     void guiButtonActivate();
     /// Deactivates all GUI pushbuttons except no. 'index'
     void guiButtonDeactivate(int index);
+
+    void setTextTermFormatting(QTextEdit * textEdit, QString const & text);
+    void parseEscapeSequence(int attribute, QListIterator< QString > & i, QTextCharFormat & textCharFormat, QTextCharFormat const & defaultTextCharFormat);
+
+    int mFontSize = 8;
 };
 
 #endif // MAINWINDOW_H

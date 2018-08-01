@@ -24,9 +24,13 @@ public:
     bool active(int index);
     void setActive(int index, bool status);
 
+    /// todo: get font size from json config
+    int getFontSize();
+
 private:
     QList<Button> mButtonList;
     QList<bool> buttonsActive;
+    int mFontSize;
 
 };
 

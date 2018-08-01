@@ -12,6 +12,8 @@
 #include "Button.h"
 #include "ButtonList.h"
 #include <QObject>
+
+#include <QFontDatabase>
 //button information
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -29,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //ui->console_widget->devicePixelRatio()
     QFont font = QApplication::font();
     font.setFamily("Monospace");
-    //font.setPointSize(6);
+    font.setPointSize(mFontSize);
     ui->console_widget->setTerminalFont(font);
     ui->console_widget->setColorScheme("Solarized");
 
@@ -49,8 +51,11 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->gridLayout_2->setColumnMinimumWidth(3,0);
 
     //create QPushButton widgets for the GUI
+    QFont guiButtonFont;
+    guiButtonFont.setPointSize(mFontSize);
     for(int i = 0; i < len; i++){
         guiButtonList.append(new QPushButton(this));
+        guiButtonList[i]->setFont(guiButtonFont);
         guiButtonList[i]->setText(QString("Start\n" + buttons.buttonList()->at(i).name()));
         ui->gridLayout_2->addWidget(guiButtonList[i]);
         connect(guiButtonList[i], &QPushButton::clicked, [this,i](){this->onGuiButtonClick(i);});
@@ -109,3 +114,25 @@ void MainWindow::guiButtonDeactivate(int index)
 }
 
 
+
+
+
+
+void MainWindow::sendCtrlC()
+{
+
+
+    foreach(QObject *obj, ui->console_widget->children())
+      {
+        if(QLatin1String(obj->metaObject()->className()) == QLatin1String("Konsole::TerminalDisplay"))
+        {
+          QKeyEvent *event1 = new QKeyEvent(QEvent::KeyPress, Qt::Key_C, Qt::ControlModifier);
+          QCoreApplication::postEvent(obj, event1);
+
+          QKeyEvent *event2 = new QKeyEvent(QEvent::KeyRelease, Qt::Key_C, Qt::ControlModifier);
+          QCoreApplication::postEvent(obj, event2);
+          break;
+        }
+      }
+
+}
