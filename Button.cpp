@@ -1,6 +1,5 @@
 //Copyright (C) 2018 Norbertas Kremeris, LIME MICROSYSTEMS
 
-
 #include "Button.h"
 
 Button::Button(QString defaultName)
@@ -27,7 +26,6 @@ QString Button::startCommand() const
 QString Button::stopCommand() const
 {
     return mStopCommand;
-
 }
 
 
@@ -36,7 +34,6 @@ void Button::read(const QJsonObject &json)
     mName = json["name"].toString();
     mStartCommand = json["startCommand"].toString();
     mStopCommand = json["stopCommand"].toString();
-
 }
 
 void Button::write(QJsonObject &json) const

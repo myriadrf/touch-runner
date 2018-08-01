@@ -26,14 +26,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         about_dialog.cpp \
-    ButtonList.cpp \
-    Button.cpp
+    Button.cpp \
+    ButtonList.cpp
 
 HEADERS += \
     about_dialog.h \
     mainwindow.h \
-    ButtonList.h \
-    Button.h
+    Button.h \
+    ButtonList.h
 
 FORMS += \
         mainwindow.ui \

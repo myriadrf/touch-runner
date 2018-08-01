@@ -1,12 +1,12 @@
 //Copyright (C) 2018 Norbertas Kremeris, LIME MICROSYSTEMS
 
-
 #include "ButtonList.h"
 
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QApplication>
 #include <QDebug>
+
 ButtonList::ButtonList()
 {
 
@@ -43,6 +43,7 @@ void ButtonList::write(QJsonObject &json) const
         button.write(buttonObject);
         buttonArray.append(buttonObject);
     }
+
     json["Buttons"] = buttonArray;
 
 }
@@ -54,9 +55,9 @@ void ButtonList::save()
         QTextStream(stdout) << "Could not save configuration, exiting.";
         qApp->exit();
     }
+
     QJsonObject configurationObject;
     write(configurationObject);
-
     QJsonDocument configurationDocument(configurationObject);
     configFile.write(configurationDocument.toJson());
 
@@ -71,10 +72,15 @@ void ButtonList::load()
         QTextStream(stdout) << "Could not load configuration, exiting.";
         qApp->exit();
     }
+
     QByteArray configData = configFile.readAll();
     QJsonDocument configDocument(QJsonDocument::fromJson(configData));
     read(configDocument.object());
-    //qDebug() << configDocument.object();
+
+    for(int i = 0; i < ButtonList::len(); i++){
+        buttonsActive.append(new bool);
+        buttonsActive[i] = false;
+    }
 }
 
 int ButtonList::len()
@@ -83,4 +89,12 @@ int ButtonList::len()
 }
 
 
+bool ButtonList::active(int index)
+{
+    return buttonsActive[index];
+}
 
+void ButtonList::setActive(int index, bool status)
+{
+    buttonsActive[index] = status;
+}

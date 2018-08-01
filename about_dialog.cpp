@@ -1,6 +1,5 @@
 //Copyright (C) 2018 Norbertas Kremeris, LIME MICROSYSTEMS
 
-
 #include "about_dialog.h"
 #include "ui_about_dialog.h"
 
