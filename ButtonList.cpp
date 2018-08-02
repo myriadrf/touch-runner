@@ -6,6 +6,7 @@
 #include <QJsonDocument>
 #include <QApplication>
 #include <QDebug>
+#include <QFile>
 
 ButtonList::ButtonList()
 {

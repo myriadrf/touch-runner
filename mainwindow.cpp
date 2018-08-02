@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     //setup sane terminal environment
-    setenv("TERM", "konsole-256color", 1);
+    setenv("TERM", "xterm-256color", 1);
     //load button config
     buttons.load();
 
@@ -131,7 +131,8 @@ void MainWindow::guiButtonDeactivate(int index)
 void MainWindow::sendCtrlC()
 {
 
-
+    //not supported on Raspberry Pi3 DietPI-stretch (old qt libs at v5.7, needs v5.11)
+/*
     foreach(QObject *obj, ui->console_widget->children())
       {
         if(QLatin1String(obj->metaObject()->className()) == QLatin1String("Konsole::TerminalDisplay"))
@@ -144,5 +145,5 @@ void MainWindow::sendCtrlC()
           break;
         }
       }
-
+*/
 }
