@@ -7,7 +7,11 @@
 QT       += core gui widgets
 
 TARGET = TouchRunner
+DESTDIR = $${OUT_PWD}/TouchRunner
+#TARGET.path = $$PREFIX/
 TEMPLATE = app
+
+
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -40,14 +44,36 @@ FORMS += \
         about_dialog.ui
 
 LIBS += -lqtermwidget5 -L/usr/lib64/
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES +=
+DISTFILES += \
+    config/config.json
 
 RESOURCES += \
     icons.qrc
+
+defineTest(copyToDestDir) {
+    files = $$1
+
+    for(FILE, files) {
+        DDIR = $$DESTDIR
+                    FILE = $$absolute_path($$FILE)
+
+        # Replace slashes in paths with backslashes for Windows
+        win32:FILE ~= s,/,\\,g
+        win32:DDIR ~= s,/,\\,g
+
+        QMAKE_POST_LINK += $$QMAKE_COPY $$quote($$FILE) $$quote($$DDIR) $$escape_expand(\\n\\t)
+    }
+
+    export(QMAKE_POST_LINK)
+}
+
+copyToDestDir($${DISTFILES})
+
 
 
