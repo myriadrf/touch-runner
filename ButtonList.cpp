@@ -54,7 +54,7 @@ void ButtonList::write(QJsonObject &json) const
 
 void ButtonList::save()
 {
-    QFile configFile("config.json");
+    QFile configFile("/opt/TouchRunner/config/config.json");
     if(!configFile.open(QIODevice::WriteOnly)){
         QTextStream(stdout) << "Could not save configuration, exiting.";
         qApp->exit();
@@ -71,7 +71,7 @@ void ButtonList::save()
 
 void ButtonList::load()
 {
-    QFile configFile("config.json");
+    QFile configFile("/opt/TouchRunner/config/config.json");
     if(!configFile.open(QIODevice::ReadOnly)){
         QTextStream(stdout) << "Could not load configuration, exiting.";
         qApp->exit();

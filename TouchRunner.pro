@@ -45,10 +45,16 @@ FORMS += \
 
 LIBS += -lqtermwidget5 -L/usr/lib64/
 
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+configuration.path = /opt/$${TARGET}/config
+configuration.files = config/config.json
+INSTALLS += configuration
+
 
 DISTFILES += \
     config/config.json
