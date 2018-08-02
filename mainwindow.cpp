@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
     font.setFamily("Monospace");
     font.setPointSize(mFontSize);
     ui->console_widget->setTerminalFont(font);
-    ui->console_widget->setColorScheme("Solarized");
+    ui->console_widget->setColorScheme("DarkPastels");
 
 
     //get no. of buttons

@@ -51,9 +51,15 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+
 configuration.path = /opt/$${TARGET}/config
 configuration.files = config/config.json
-INSTALLS += configuration
+
+!exists(/opt/$${TARGET}/config/config.json) {
+    INSTALLS += configuration
+    message("No old configuration detected.")
+}
+
 
 
 DISTFILES += \
@@ -61,6 +67,12 @@ DISTFILES += \
 
 RESOURCES += \
     icons.qrc
+
+
+
+
+
+
 
 defineTest(copyToDestDir) {
     files = $$1
