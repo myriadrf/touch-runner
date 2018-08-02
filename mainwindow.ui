@@ -15,15 +15,48 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>2</number>
+    </property>
+    <property name="leftMargin">
+     <number>3</number>
+    </property>
+    <property name="topMargin">
+     <number>3</number>
+    </property>
+    <property name="rightMargin">
+     <number>3</number>
+    </property>
+    <property name="bottomMargin">
+     <number>3</number>
+    </property>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QTermWidget" name="console_widget" native="true"/>
+       <widget class="QTermWidget" name="console_widget" native="true">
+        <widget class="QPushButton" name="pushButton">
+         <property name="geometry">
+          <rect>
+           <x>480</x>
+           <y>40</y>
+           <width>103</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+       </widget>
       </item>
      </layout>
     </item>
     <item>
-     <layout class="QGridLayout" name="gridLayout_2"/>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+     </layout>
     </item>
    </layout>
   </widget>

@@ -6,6 +6,7 @@ Button::Button(QString defaultName)
 {
     mName = defaultName;
     mActive = false;
+    mLocking = true;
 }
 
 Button::Button()
@@ -16,6 +17,11 @@ Button::Button()
 QString Button::name() const
 {
     return mName;
+}
+
+bool Button::locking() const
+{
+    return mLocking;
 }
 
 QString Button::startCommand() const
@@ -32,6 +38,7 @@ QString Button::stopCommand() const
 void Button::read(const QJsonObject &json)
 {
     mName = json["name"].toString();
+    mLocking = json["locking"].toBool();
     mStartCommand = json["startCommand"].toString();
     mStopCommand = json["stopCommand"].toString();
 }
@@ -39,6 +46,7 @@ void Button::read(const QJsonObject &json)
 void Button::write(QJsonObject &json) const
 {
     json["name"] = mName;
+    json["locking"] = mLocking;
     json["startCommand"] = mStartCommand;
     json["stopCommand"] = mStopCommand;
 }

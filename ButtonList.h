@@ -22,9 +22,9 @@ public:
     int len();
 
     bool active(int index);
+    bool locking(int index);
     void setActive(int index, bool status);
 
-    /// todo: get font size from json config
     int getFontSize();
 
 private:

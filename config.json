@@ -1,34 +1,41 @@
-﻿{
+{
     "Buttons": [
         {
-            "name": "demo1",
-            "startCommand": "default button1 start command",
-            "stopCommand": "default button1 stop command"
+            "locking": true,
+            "name": "osmo-simulator",
+            "startCommand": "/opt/osmo/start.sh",
+            "stopCommand": "/opt/osmo/stop.sh"
         },
         {
-            "name": "demo2",
-            "startCommand": "default button2 start command",
-            "stopCommand": "default button2 stop command"
+            "locking": false,
+            "name": "non-locking\ndemo",
+            "startCommand": "echo non locking start",
+            "stopCommand": "this is not relevant in this case"
         },
         {
+            "locking": true,
             "name": "demo3",
             "startCommand": "default button3 start command",
             "stopCommand": "default button3 stop command"
         },
         {
+            "locking": true,
             "name": "demo4",
             "startCommand": "default button4 start command",
             "stopCommand": "default button4 stop command"
         },
         {
+            "locking": true,
             "name": "demo5",
             "startCommand": "default button5 start command",
             "stopCommand": "default button5 stop command"
         },
         {
-            "name": "demo6",
+            "locking": true,
+            "name": "multiple\nlines",
             "startCommand": "default button6 start command",
             "stopCommand": "default button6 stop command"
         }
-    ]
+    ],
+    "Font size": 8
 }

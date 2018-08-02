@@ -28,6 +28,7 @@ private slots:
 
     void sendCtrlC();
 
+
 private:
     Ui::MainWindow *ui;
     bool osmo_running = false;

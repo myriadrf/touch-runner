@@ -28,11 +28,13 @@ void ButtonList::read(const QJsonObject &json)
     QJsonArray buttonArray;
     buttonArray = json["Buttons"].toArray();
     for (int buttonIndex = 0; buttonIndex < buttonArray.size(); ++buttonIndex) {
-        QJsonObject buttonObject = buttonArray[buttonIndex].toObject();
-        Button button;
-        button.read(buttonObject);
-        mButtonList.append(button);
+        QJsonObject buttonObject = buttonArray[buttonIndex].toObject(); //take one button object out of json array
+        Button button; //new button
+        button.read(buttonObject); //read json to button config
+        mButtonList.append(button); //append new button to list
     }
+    mFontSize = json["Font size"].toInt();
+
 }
 
 void ButtonList::write(QJsonObject &json) const
@@ -45,6 +47,7 @@ void ButtonList::write(QJsonObject &json) const
     }
 
     json["Buttons"] = buttonArray;
+    json["Font size"] = mFontSize;
 
 }
 
@@ -94,7 +97,17 @@ bool ButtonList::active(int index)
     return buttonsActive[index];
 }
 
+bool ButtonList::locking(int index)
+{
+    return buttonList()->at(index).locking();
+}
+
 void ButtonList::setActive(int index, bool status)
 {
     buttonsActive[index] = status;
+}
+
+int ButtonList::getFontSize()
+{
+    return mFontSize;
 }

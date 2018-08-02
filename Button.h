@@ -14,6 +14,7 @@ public:
     Button();
 
     QString name() const;
+    bool locking() const;
     QString startCommand() const;
     QString stopCommand() const;
 
@@ -25,6 +26,7 @@ private:
     QString mStartCommand = "default button start command";
     QString mStopCommand = "default button stop command";
     bool mActive;
+    bool mLocking;
 
 };
 

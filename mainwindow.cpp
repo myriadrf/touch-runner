@@ -21,11 +21,14 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     //setup sane terminal environment
     setenv("TERM", "konsole-256color", 1);
+    //load button config
+    buttons.load();
+
+    mFontSize = buttons.getFontSize();
 
     ui->setupUi(this);
     ui->console_widget->changeDir("/opt");
     ui->console_widget->sendText("clear\r");
-    ui->centralWidget->layout()->setContentsMargins(2,2,2,2);
 
     //set console parameters
     //ui->console_widget->devicePixelRatio()
@@ -35,9 +38,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->console_widget->setTerminalFont(font);
     ui->console_widget->setColorScheme("Solarized");
 
-    //=======BUTTON CONFIG=========
-    //load button config
-    buttons.load();
 
     //get no. of buttons
     int len = buttons.len();
@@ -56,6 +56,7 @@ MainWindow::MainWindow(QWidget *parent) :
     for(int i = 0; i < len; i++){
         guiButtonList.append(new QPushButton(this));
         guiButtonList[i]->setFont(guiButtonFont);
+        guiButtonList[i]->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
         guiButtonList[i]->setText(QString("Start\n" + buttons.buttonList()->at(i).name()));
         ui->gridLayout_2->addWidget(guiButtonList[i]);
         connect(guiButtonList[i], &QPushButton::clicked, [this,i](){this->onGuiButtonClick(i);});
@@ -79,21 +80,30 @@ void MainWindow::on_actionABOUT_triggered()
 
 void MainWindow::onGuiButtonClick(int index)
 {
+    if(buttons.locking(index)){
+        if(buttons.active(index)){
+            //stop currently active demo
+            ui->console_widget->sendText(QString(buttons.buttonList()->at(index).stopCommand() + "\r"));
+            guiButtonList[index]->setText(QString("Start\n" + buttons.buttonList()->at(index).name()));
+            buttons.setActive(index,false);
+            guiButtonActivate();
 
-    if(buttons.active(index)){
-        //stop currently active demo
-        ui->console_widget->sendText(QString(buttons.buttonList()->at(index).stopCommand() + "\r"));
-        guiButtonList[index]->setText(QString("Start\n" + buttons.buttonList()->at(index).name()));
-        buttons.setActive(index,false);
-        guiButtonActivate();
+        } else{
+            //start a new demo
+            guiButtonList[index]->setText(QString("Stop\n" + buttons.buttonList()->at(index).name()));
+            ui->console_widget->sendText(QString(buttons.buttonList()->at(index).startCommand() + "\r"));
+            buttons.setActive(index,true);
+            guiButtonDeactivate(index);
+        }
+    }//if(buttons.locking(index)
 
-    } else{
-        //start a new demo
-        guiButtonList[index]->setText(QString("Stop\n" + buttons.buttonList()->at(index).name()));
+    else {
+        //start a new demo, non locking
         ui->console_widget->sendText(QString(buttons.buttonList()->at(index).startCommand() + "\r"));
-        buttons.setActive(index,true);
-        guiButtonDeactivate(index);
     }
+
+    buttons.save();
+
 }
 
 void MainWindow::guiButtonActivate()
