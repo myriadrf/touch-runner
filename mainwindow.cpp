@@ -35,6 +35,12 @@ MainWindow::MainWindow(QWidget *parent) :
     QFont font = QApplication::font();
     font.setFamily("Monospace");
     font.setPointSize(mFontSize);
+    int scrollBarWidth = mFontSize * 5;
+    QString scrollBarStyle = "QScrollBar:vertical { width: " + QString::number(scrollBarWidth) + "px; }";
+
+   // ui->console_widget->setStyleSheet("QScrollBar:vertical { width: 100px; }");
+    ui->console_widget->setStyleSheet(scrollBarStyle);
+    ui->console_widget->setScrollBarPosition(QTermWidget::ScrollBarRight);
     ui->console_widget->setTerminalFont(font);
     ui->console_widget->setColorScheme("DarkPastels");
 
